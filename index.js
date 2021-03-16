@@ -1,12 +1,12 @@
 const fs = require('fs');
+const readJsonFile = require('./readJsonFile');
+
 (async () => {
     try {
         const [file1, file2] = await Promise.all([
-            fs.promises.readFile('input/fileOne.json'),
-            fs.promises.readFile('input/fileTwo.json')]);
-        const fileContents1 = JSON.parse(file1);
-        const fileContents2 = JSON.parse(file2);        
-        const merged = { ...fileContents1, ...fileContents2 };        
+            readJsonFile('input/fileOne.json'),
+            readJsonFile('input/fileTwo.json')]);
+        const merged = { ...file1, ...file2 };
         const output = JSON.stringify(merged);
         fs.promises.writeFile('output/output.json', output);
         console.log('data written', output);
@@ -15,4 +15,4 @@ const fs = require('fs');
         console.log(err);
         process.exit(1);
     }
-}) ();
+})();

@@ -1,15 +1,14 @@
 const fs = require('fs');
+const readJsonFile = require('./readJsonFile');
 const _ = require('lodash');
 (async () => {
     try {
         const [file1, file2] = await Promise.all([
-            fs.promises.readFile('input/fileOne.json'),
-            fs.promises.readFile('input/fileTwo.json')]);
-        const fileContents1 = JSON.parse(file1);
-        const fileContents2 = JSON.parse(file2);
-        const merged = _.merge({}, fileContents1, fileContents2 );
+            readJsonFile('input/fileOne.json'),
+            readJsonFile('input/fileTwo.json')]);
+        const merged = _.merge({}, file1, file2 );
         const output = JSON.stringify(merged);
-        fs.promises.writeFile('output/ld-output.json', output);
+        fs.promises.writeFile('output/output-ld.json', output);
         console.log('data written', output);
     }
     catch (err) {
